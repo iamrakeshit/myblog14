@@ -11,14 +11,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+    private PostRepository postRepository;
     private CommentRepository commentRepository;
 
-    public CommentServiceImpl(CommentRepository commentRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository,PostRepository postRepository) {
         this.commentRepository = commentRepository;
-    }
-    private PostRepository postRepository;
-
-    public CommentServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
@@ -39,6 +36,10 @@ public class CommentServiceImpl implements CommentService {
         dto.setContent(savedComment.getContent());
 
         return dto;
+    }
+    @Override
+    public void deleteComment(long id) {
+        commentRepository.deleteById(id);
     }
 
 }
